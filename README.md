@@ -3,7 +3,7 @@
 ## Upute za Rješavanje Zadatka
 
 1. **Priprema okruženja:**
-   - Kreirajte "fork" repozitorija s poveznicom **[LINK]** na GitHubu.
+   - Kreirajte "fork" repozitorija.
    - Dodijelite repozitoriju naziv u formatu `pydev_parcijalni_ime_prezime` (primjer: `pydev_parcijalni_pero_peric`). 
    - **VAŽNO:** Nemojte kreirati "clone" repozitorija jer nemate pravo mijenjanja.
 
