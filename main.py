@@ -1,5 +1,6 @@
 import json
 
+# TODO: Dodati type hinting na sve funkcije
 
 OFFERS_FILE = "offers.json"
 PRODUCTS_FILE = "products.json"
