@@ -27,7 +27,7 @@ def save_data(filename, data):
 
 
 # TODO: Implementirajte funkciju za kreiranje nove ponude.
-def create_new_offer(offers, products, customers):
+def create_new_offer(offers: list, products: list, customers: list) -> None:
     """
     Prompt user to create a new offer by selecting a customer, entering date,
     choosing products, and calculating totals.
@@ -125,7 +125,7 @@ def create_new_offer(offers, products, customers):
 
 
 # TODO: Implementirajte funkciju za upravljanje proizvodima.
-def manage_products(products):
+def manage_products(products: list) -> None:
     """
     Allows the user to add a new product or modify an existing product.
     """
@@ -186,7 +186,7 @@ def manage_products(products):
 
 
 # TODO: Implementirajte funkciju za upravljanje kupcima.
-def manage_customers(customers):
+def manage_customers(customers) -> None:
     """
     Allows the user to add a new customer or view all customers.
     """
@@ -226,7 +226,7 @@ def manage_customers(customers):
 
 
 # TODO: Implementirajte funkciju za prikaz ponuda.
-def display_offers(offers):
+def display_offers(offers) -> None:
     """
     Display all offers, offers for a selected month, or a single offer by ID.
     """
@@ -277,7 +277,7 @@ def display_offers(offers):
 
 
 # Pomoćna funkcija za prikaz jedne ponude
-def print_offer(offer):
+def print_offer(offer: dict) -> None:
     """Display details of a single offer."""
     print(f"Ponuda br: {offer['offer_number']}, Kupac: {offer['customer']}, Datum ponude: {offer['date']}")
     print("Stavke:")
