@@ -1,4 +1,5 @@
 import json
+import datetime
 
 # TODO: Dodati type hinting na sve funkcije
 
@@ -45,7 +46,53 @@ def manage_products(products):
     # Omogućite korisniku izbor između dodavanja ili izmjene proizvoda
     # Za dodavanje: unesite podatke o proizvodu i dodajte ga u listu products
     # Za izmjenu: selektirajte proizvod i ažurirajte podatke
-    pass
+    while True:
+        print()
+        print("Želite li dodati novi ili promijeniti postojeći proizvod?:")
+        print("1. Kreiraj novi proizvod")
+        print("2. Ažuriraj proizvod")
+        choice = input("Odabrana opcija: ")
+
+        if choice == "1":
+            print()
+            product_name = input("Unesi ime proizvnoda: ")
+            product_desc = input("Unesi opis proizvnoda: ")
+            product_price = float(input("Unesi cijenu proizvnoda: "))
+            product_id = len(products) + 1
+            products.append({
+                "id": product_id,
+                "name": product_name,
+                "description": product_desc,
+                "price": product_price
+            })
+            break
+
+        elif choice == "2":
+            print(100 * "-")
+            for product in products:
+                print(product)
+            #print(products)
+            print(100 * "-")
+            while True:
+                product_id = int(input("Unesi id proizvnoda kojega želite ažurirati: "))
+                if product_id >= 1 and product_id <= len(products):
+                    break
+                else:
+                    print(f"Proizvod sa tim ID ne postoji, unesite broj od 1 do {len(products)}")
+            product_name = input("Unesi ažurirano ime proizvnoda: ")
+            product_desc = input("Unesi ažurirani opis proizvnoda: ")
+            product_price = float(input("Unesi ažuriranu cijenu proizvnoda: "))
+            products[product_id - 1] = ({
+                "id": product_id,
+                "name": product_name,
+                "description": product_desc,
+                "price": product_price
+            })
+            break
+        else:
+                print("Krivi izbor. Pokusajte ponovno.")
+
+    
 
 
 # TODO: Implementirajte funkciju za upravljanje kupcima.
@@ -55,7 +102,35 @@ def manage_customers(customers):
     """
     # Za dodavanje: omogući unos imena kupca, emaila i unos VAT ID-a
     # Za pregled: prikaži listu svih kupaca
-    pass
+    while True:
+        print()
+        print("Izbornik: ")
+        print("1. Dodaj novog kupca")
+        print("2. Prikaži sve kupce")
+
+        choice = input("Odabrana opcija: ")
+
+        if choice == "1":
+            customer_name = (input("Unesi ime kupca: "))
+            customer_email = (input("Unesi email kupca: "))
+            customer_vatid = (input("Unesi VAT-ID kupca: "))
+            customer_id = len(customers) + 1
+            customers.append({
+                "name": customer_name,
+                "email": customer_email,
+                "vat_id": customer_vatid
+            })
+            break
+
+        elif choice == "2":
+            print(100*"-", end="")
+            for customer in customers:
+                print(f"\nIme kupca: {customer["name"]}\nEmail kupca: {customer["email"]}\nVAT-ID kupca: {customer["vat_id"]}\n")
+            print(100*"-", end="")
+
+            break
+        else:
+                print("Krivi izbor. Pokusajte ponovno.")
 
 
 # TODO: Implementirajte funkciju za prikaz ponuda.
@@ -65,13 +140,47 @@ def display_offers(offers):
     """
     # Omogućite izbor pregleda: sve ponude, po mjesecu ili pojedinačna ponuda
     # Prikaz relevantnih ponuda na temelju izbora
-    pass
+    
+    while True:
+        print()
+        print("Izbornik:")
+        print("1. Prikaži sve ponude")
+        print("2. Prikaži sve ponude za određeni mjesec")
+        print("3. Prikaži određenu ponudu")
+        
+        choice = input("Odabrana opcija: ")
+
+        if choice == "1":
+            for offer in offers:
+                print(100*"-")
+                print_offer(offer)
+            print(100*"-")
+            break
+        elif choice == "2":
+            while True:
+                month_input = input("Unesite željenu godinu i mjesec u formatu YYYY-MM: ")
+                if int(month_input[:4]) >= 2000 and int(month_input[:4]) <= 2024 and int(month_input[5:]) >= 1 and int(month_input[5:]) <=12 and month_input[4] == "-":
+                    for offer in offers:
+                        if month_input == offer['date'][:7]:
+                            print_offer(offer)
+                            print(100*"-")
+                    break
+                else:
+                    print("Krivi format datuma, molim unesite godinu i mjesec u formatu YYYY-MM")
+            break
+        elif choice == "3":
+            offer_num = int(input("Odaberite broj ponude: "))
+            print(100*"-")
+            print_offer(offers[offer_num - 1])
+            print(100*"-")
+            break
+
 
 
 # Pomoćna funkcija za prikaz jedne ponude
 def print_offer(offer):
     """Display details of a single offer."""
-    print(f"Ponuda br: {offer['offer_number']}, Kupac: {offer['customer']['name']}, Datum ponude: {offer['date']}")
+    print(f"Ponuda br: {offer['offer_number']}, Kupac: {offer['customer']}, Datum ponude: {offer['date']}")
     print("Stavke:")
     for item in offer["items"]:
         print(f"  - {item['product_name']} (ID: {item['product_id']}): {item['description']}")
