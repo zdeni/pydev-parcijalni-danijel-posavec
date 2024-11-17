@@ -1,5 +1,5 @@
 import json
-import datetime
+from datetime import date
 
 # TODO: Dodati type hinting na sve funkcije
 
@@ -35,7 +35,93 @@ def create_new_offer(offers, products, customers):
     # Omogućite unos kupca
     # Izračunajte sub_total, tax i total
     # Dodajte novu ponudu u listu offers
-    pass
+    
+    
+    print("\nUneseni kupci:")
+    print(100*"-")
+    new_offer = {}
+    for customer in customers:
+        print(customer['name'])
+    print()
+    while True:
+        customer_name = input('Unesi ime kupca: ')
+        is_customer = False
+
+        for customer in customers:
+            if customer["name"].lower() == customer_name.lower():
+                is_customer = True
+                new_offer["offer_number"] = len(offers) + 1
+                new_offer["customer"] = customer["name"]
+                today = date.today()
+                today = today.strftime("%y-%m-%d")
+                new_offer["date"] = today
+                new_offer["items"] = []
+        
+        if is_customer == False:
+            print("Kupac s tim imenom ne postoji.\n")
+        else:
+            break
+
+    print("\nUneseni proizvodi:")
+    print(100*"-")
+    for element in products:
+        print(f"ID proizvoda: {element["id"]}\t Naziv: {element["name"]}\t\t\t\t", end = "")
+        if len(element["name"]) > 15:
+            print(f"Cijena: {element["price"]:.2f}")
+        elif len(element["name"]) > 7:
+            print(f"\tCijena: {element["price"]:.2f}")
+        else:
+            print(f"\t\tCijena: {element["price"]:.2f}")
+    print()
+
+
+    product_flag = True
+    current_item = {}
+    sub_total = 0
+
+    while product_flag:
+        product_id = int(input('Unesi ID proizvoda: '))
+        is_product = False
+        
+        if product_id <= len(products) and product_id >0:
+            is_product = True
+            current_item["product_id"] = product_id
+            current_item["product_name"] = products[product_id-1]["name"]
+            current_item["description"] = products[product_id-1]["description"]
+            current_item["price"] = products[product_id-1]["price"]
+                
+
+        if is_product == False:
+            print("Proizvod sa tim ID ne postoji.")
+        else:
+            while True:
+            
+                quantity = int(input('Unesi kolicinu odabranog proizvoda: '))
+                if quantity > 0:
+                    current_item["quantity"] = quantity
+                    current_item["item_total"] = quantity * products[product_id-1]["price"]
+                    new_offer["items"].append(current_item.copy())
+                    sub_total += quantity * products[product_id-1]["price"]
+                    break
+                else:
+                    print("Unesite količinu veću od nule.")
+
+        while True:
+            dodati_jos = input("\nŽelite li dodati još proizvoda na ponudu? (da/ne) ")
+            if dodati_jos == "ne":
+
+                product_flag = False
+                break
+            elif dodati_jos == "da":
+                break
+            else:
+                print("Molim unesite da ili ne.")
+
+    new_offer["sub_total"] = sub_total
+    new_offer["tax"] = sub_total * 0.1
+    new_offer["total"] = sub_total + new_offer["tax"]
+    offers.append(new_offer)
+    print("Ponuda unesena!")
 
 
 # TODO: Implementirajte funkciju za upravljanje proizvodima.
