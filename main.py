@@ -137,7 +137,9 @@ def manage_products(products):
         print("Želite li dodati novi ili promijeniti postojeći proizvod?:")
         print("1. Kreiraj novi proizvod")
         print("2. Ažuriraj proizvod")
+        print("3. Odustani")
         choice = input("Odabrana opcija: ")
+        print()
 
         if choice == "1":
             print()
@@ -175,6 +177,8 @@ def manage_products(products):
                 "price": product_price
             })
             break
+        elif choice == "3":
+            break
         else:
                 print("Krivi izbor. Pokusajte ponovno.")
 
@@ -193,14 +197,15 @@ def manage_customers(customers):
         print("Izbornik: ")
         print("1. Dodaj novog kupca")
         print("2. Prikaži sve kupce")
+        print("3. Odustani")
 
         choice = input("Odabrana opcija: ")
+        print()
 
         if choice == "1":
             customer_name = (input("Unesi ime kupca: "))
             customer_email = (input("Unesi email kupca: "))
             customer_vatid = (input("Unesi VAT-ID kupca: "))
-            customer_id = len(customers) + 1
             customers.append({
                 "name": customer_name,
                 "email": customer_email,
@@ -213,7 +218,8 @@ def manage_customers(customers):
             for customer in customers:
                 print(f"\nIme kupca: {customer["name"]}\nEmail kupca: {customer["email"]}\nVAT-ID kupca: {customer["vat_id"]}\n")
             print(100*"-", end="")
-
+            break
+        elif choice == "3":
             break
         else:
                 print("Krivi izbor. Pokusajte ponovno.")
@@ -233,8 +239,10 @@ def display_offers(offers):
         print("1. Prikaži sve ponude")
         print("2. Prikaži sve ponude za određeni mjesec")
         print("3. Prikaži određenu ponudu")
+        print("4. Odustani")
         
         choice = input("Odabrana opcija: ")
+        print()
 
         if choice == "1":
             for offer in offers:
@@ -260,6 +268,11 @@ def display_offers(offers):
             print_offer(offers[offer_num - 1])
             print(100*"-")
             break
+        elif choice == "4":
+            break
+        else:
+            print("Krivi izbor. Pokusajte ponovno.")
+            
 
 
 
@@ -281,7 +294,7 @@ def main():
     customers = load_data(CUSTOMERS_FILE)
 
     while True:
-        print("\nOffers Calculator izbornik:")
+        print("Offers Calculator izbornik:")
         print("1. Kreiraj novu ponudu")
         print("2. Upravljanje proizvodima")
         print("3. Upravljanje korisnicima")
